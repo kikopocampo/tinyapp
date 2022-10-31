@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/kikopocampo/tinyapp/issues"
   },
-  "homepage": "https://github.com/kikopocampo/tinyapp#readme"
+  "homepage": "https://github.com/kikopocampo/tinyapp#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
