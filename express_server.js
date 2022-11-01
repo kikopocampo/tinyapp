@@ -28,7 +28,6 @@ const urlDatabase = {
 };
 
 app.get('/', (req,res) => {
-  // const a = 'kiko';
   res.send(`Hello!`);
 });
 
@@ -48,18 +47,20 @@ app.get('/urls/:id', (req,res) => {
 })
 
 app.post('/urls', (req,res) => {
-  console.log(req.body);
-  res.send('Ok')
+  const randomStr = generateRandomString();
+  urlDatabase[randomStr] = `http://${req.body.longURL}`;
+  res.redirect(`/urls/${randomStr}`)
 })
 
+app.get('/u/:id', (req,res) => {
+  const longURL = urlDatabase[req.params.id]
+  res.redirect(longURL)
+})
 
 app.get('/urls.json', (req,res) => {
   res.json(urlDatabase);
 });
 
-app.get('/hello', (req,res) => {
-  res.send('<html><body>Hello <b>World</b></body></html>\n');
-});
 
 app.listen(PORT, () => {
   console.log(`Listening to PORT ${PORT}`);
