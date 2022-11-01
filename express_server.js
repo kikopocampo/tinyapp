@@ -38,7 +38,6 @@ app.get('/urls', (req,res) => {
   res.render('urls_index', templateVars)
 })
 
-
 app.get('/urls/new', (req,res) => {
   console.log(req.cookies)
   const templateVars = {username: req.cookies['username']}
@@ -55,8 +54,6 @@ app.post('/urls', (req,res) => {
   urlDatabase[randomStr] = `http://${req.body.longURL}`;
   res.redirect(`/urls/${randomStr}`)
 })
-
-
 
 app.post('/urls/:id/delete', (req,res) => {
   delete urlDatabase[req.params.id]
