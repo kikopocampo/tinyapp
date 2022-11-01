@@ -24,6 +24,8 @@ const generateRandomString = () => {
   return output;
 }
 
+const users = {};
+
 const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com",
@@ -39,9 +41,12 @@ app.get('/urls', (req,res) => {
 })
 
 app.get('/urls/new', (req,res) => {
-  console.log(req.cookies)
   const templateVars = {username: req.cookies['username']}
   res.render('urls_new', templateVars)
+})
+
+app.get('/register', (req, res) => {
+  res.render('registration')
 })
 
 app.get('/urls/:id', (req,res) => {
