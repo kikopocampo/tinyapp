@@ -7,14 +7,23 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
+       <!-- Bootstrap CSS -->
+       <link
+       rel="stylesheet"
+       href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+       crossorigin="anonymous"
+     />
+
     <title>TinyApp-Register</title>
   </head>
 
-  <body bgcolor="linen">
+  <body class="p-3 mb-2 bg-light">
+    <%- include('partial/_header') %>
     <main style="margin: 1em;">
-  <div style="display:table;position:absolute;top:0;left:0;height:100%;width:100%">
+      <div style="display:table;position:absolute;top: 60px;;left:0;height:70%;width:100%">
     <div style="vertical-align: middle; display:table-cell">
-      <div class="container" style=" width: 400px; margin-right: auto; margin-left: auto; background-color: linen;">
+      <div class="container bg-light" style=" width: 400px; margin-right: auto; margin-left: auto;">
         <img style="height: 80px;width: 80px; display: block; margin-left: auto; margin-right: auto; margin-top: 50px;"  src="scissors.png">
         <h2 style="text-align: center; font-size: 40px;margin-top: 0px;" >Tiny App</h2>
         <h6 style="text-align: center; font-size: 20px; margin-top: 0px; margin-bottom: 0px">Create an Account</h6>
@@ -45,6 +54,21 @@
     
  
     </main>
-    
+     <!-- Bootstrap JS -->
+     <script
+     src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+     crossorigin="anonymous"
+   ></script>
+   <script
+     src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+     crossorigin="anonymous"
+   ></script>
+   <script
+     src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+     crossorigin="anonymous"
+   ></script>
   </body>
 </html>
