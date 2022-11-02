@@ -7,39 +7,43 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <title>Tiny App - Register</title>
+    <title>TinyApp-Register</title>
   </head>
 
-  <body>
+  <body bgcolor="linen">
     <main style="margin: 1em;">
-      <div style="background-color: lightgreen;">
-      <h2 style="margin: 5px; text-align: center; font-size: 40px;" >Create an account</h2>
-      </div>
-
-      <div>
-      <form class="form-inline" method="POST" action="/register">
-        <label for="email">E-mail: </label>
+  <div style="display:table;position:absolute;top:0;left:0;height:100%;width:100%">
+    <div style="vertical-align: middle; display:table-cell">
+      <div class="container" style=" width: 400px; margin-right: auto; margin-left: auto; background-color: linen;">
+        <img style="height: 80px;width: 80px; display: block; margin-left: auto; margin-right: auto; margin-top: 50px;"  src="scissors.png">
+        <h2 style="text-align: center; font-size: 40px;margin-top: 0px;" >Tiny App</h2>
+        <h6 style="text-align: center; font-size: 20px; margin-top: 0px; margin-bottom: 0px">Create an Account</h6>
+        <form class="form-inline" method="POST" action="/register" style="margin:10%;">
+        <label for="email"></label>
         <input
         type="email"
         name="email"
-        placeholder="Enter Email"
-        style="margin: 5px; text-align: center; align-content: center;"
+        placeholder="Email Address"
+        style="margin: 0px; display: block; margin-left: auto; margin-right: auto;height:30px;width: 200px"
         />
-        <label for="password">Password: </label>
+        <br>
+        <label for="password"></label>
         <input
         type="password"
         name="password"
-        placeholder="Enter Password"
+        id="password"
+        placeholder="Password"
         margin="10px"
-        style="margin: 5px; text-align: center;"
+        style="margin: 0px; display: block; margin-left: auto; margin-right: auto;height:30px;width: 200px"
         />
-        <button type="submit" class="btn btn-primary" style="margin: 5px">Submit</button>
-      </form>  
-
-    </div>
-      <div style="background-color: green">
-        <p></p>
+        <br><br>
+        <button type="submit" style="width:200px; height:30px; display:block; margin-left: auto; margin-right: auto; border-radius: 5px;background-color: black; color:white" >Register</button>
+        </form>  
       </div>
+    </div>
+  </div>
+    
+ 
     </main>
     
   </body>
