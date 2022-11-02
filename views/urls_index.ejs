@@ -16,7 +16,7 @@
     />
     <title>TinyApp</title>
   </head>
-  <body>
+  <body class="p-3 mb-2 bg-light">
   <header>
     <%- include('partial/_header') %>
   </header>
@@ -37,10 +37,10 @@
               <td><%= id %></td>
               <td><%= urls[id] %></td>
               <form method="GET" action="/urls/<%= id %>">
-              <td><button type="submit" style="background-color:peru; border-color: black;" class="btn btn-primary">Edit</button></td>  
+              <td><button type="submit" style="color: black; border-color: black;" class="btn btn-primary bg-warning">Edit</button></td>  
               </form>
               <form method="POST" action="/urls/<%= id %>/delete">
-              <td><button type="submit" style="background-color:red; border-color: black;" class="btn btn-primary">Delete</button></td>
+              <td><button type="submit" style="border-color: black;" class="btn btn-primary bg-danger">Delete</button></td>
               </form>
             </tr>
           <% } %>
