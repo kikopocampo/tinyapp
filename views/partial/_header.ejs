@@ -16,7 +16,7 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="/urls">My URLs</a>
         <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
-          <%if (!username) {%>
+          <%if (!user['id']) {%>
          <form class="form-inline" method = "POST" action="/login" >
             <input
             class="form-control"
@@ -30,7 +30,7 @@
           </form>
           <% } else { %>
             <form class="form-inline" method = "POST" action="/logout" >
-              <p style="position:fixed; right: 90px ; text-align: right; margin: 5px; font-size: 20px;">Logged in as: <%= username %></p>
+              <p style="position:fixed; right: 90px ; text-align: right; margin: 5px; font-size: 20px;">Logged in as:<%= user['email']%></p>
               <button type="submit" class="btn btn-primary" style="margin: 5px; position:absolute; right:0px" autofocus>Logout</button> 
             </form>
           <% } %>
