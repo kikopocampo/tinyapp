@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark bg-success">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" href="/urls">TinyApp</a>
     <button
       class="navbar-toggler"
@@ -16,12 +16,17 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="/urls">My URLs</a>
         <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
-        <a class="nav-item nav-link" href="/register">Register</a>
-        <a class="nav-item nav-link" href="/login" style="float:right;">Login</a>
-          <%if (2===1) {%>
+          <%if (!user) {%>
+            <form class="form-inline" method = "GET" action="/register" >
+              <button type="submit" class="btn btn-primary bg-light" style="color:black; margin: 5px; position:absolute; right:80px;border-color: black;">Register</button> 
+            </form>
+            <form class="form-inline" method = "GET" action="/login" >
+              <button type="submit" class="btn btn-primary bg-light" style="color:black; margin: 5px; position:absolute; right:0px ;border-color: black; " autofocus>Login</button> 
+            </form>
+          <% } else { %>
             <form class="form-inline" method = "POST" action="/logout" >
-              <p style="position:fixed; right: 90px ; text-align: right; margin: 5px; font-size: 20px;">Welcome back, apple</p>
-              <button type="submit" class="btn btn-primary" style="margin: 5px; position:absolute; right:0px" autofocus>Logout</button> 
+              <p style="position:fixed; right: 100px ; text-align: right; margin: 5px; font-size: 18px; color: white;">Welcome back, <%= (user.email).split('@')[0] %></p>
+              <button type="submit" class="btn btn-primary" style="margin: 5px; position:absolute; right:0px; background-color:slategray ;border-color: black;">Logout</button> 
             </form>
           <% } %>
           
