@@ -24,12 +24,24 @@ const generateRandomString = () => {
   return output;
 }
 
-const users = {};
+const users = {
+  findEmail(email) {
+    for(const key in this){
+      if(email === this[key]['email']){
+        return this[key];
+      }
+    }
+    return null;
+  },
+};
+
+
 
 const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com",
 };
+
 
 app.get('/', (req,res) => {
   res.send(`Hello!`);
@@ -50,8 +62,7 @@ app.get('/urls/new', (req,res) => {
 
 app.get('/register', (req, res) => {
   const id = req.cookies['username'];
-  console.log(users[id])
-  console.log(users)
+  // console.log(users[id])
   res.render('registration')
 })
 
@@ -88,13 +99,18 @@ app.post('/logout', (req,res) => {
 })
 
 app.post('/register', (req,res) => {
+  if(!req.body.password || !req.body.email || users.findEmail(req.body.email)){
+    res.redirect('/400')
+    return;
+  }
   const newId = generateRandomString()
   users[newId] = {
     'id': newId,
     email: req.body.email,
     password: req.body.password
   };
-  res.cookie('username', users[newId]['id'])
+  
+  res.cookie('username', users[newId]['id']);
   res.redirect('/urls')
 })
 
@@ -103,9 +119,13 @@ app.get('/u/:id', (req,res) => {
   res.redirect(longURL)
 })
 
-// app.get('/urls.json', (req,res) => {
-//   res.json(urlDatabase);
-// });
+app.get('/400', (req,res) => {
+  res.render('400')
+})
+
+app.get('*', (req,res) => {
+  res.render('404')
+});
 
 
 app.listen(PORT, () => {
