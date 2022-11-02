@@ -16,21 +16,11 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="/urls">My URLs</a>
         <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
-          <%if (!user['id']) {%>
-         <form class="form-inline" method = "POST" action="/login" >
-            <input
-            class="form-control"
-            type="text"
-            name="username"
-            placeholder="Username"
-            style="position:fixed; right: 80px;"
-            required
-            />
-            <button type="submit" class="btn btn-primary" style="margin: 5px; position:absolute; right:0px" autofocus>Login</button> 
-          </form>
-          <% } else { %>
+        <a class="nav-item nav-link" href="/register">Register</a>
+        <a class="nav-item nav-link" href="/login" style="float:right;">Login</a>
+          <%if (2===1) {%>
             <form class="form-inline" method = "POST" action="/logout" >
-              <p style="position:fixed; right: 90px ; text-align: right; margin: 5px; font-size: 20px;">Logged in as:<%= user['email']%></p>
+              <p style="position:fixed; right: 90px ; text-align: right; margin: 5px; font-size: 20px;">Welcome back, apple</p>
               <button type="submit" class="btn btn-primary" style="margin: 5px; position:absolute; right:0px" autofocus>Logout</button> 
             </form>
           <% } %>
