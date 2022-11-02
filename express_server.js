@@ -6,7 +6,9 @@ const PORT = 8080;
 app.set('view engine', 'ejs');
 // to translate POST data: buffer -> human readable.
 // middleware for buffer and cookies
+// express.static for the photo
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public')); 
 app.use(cookieParser());
 // short URL generator
 const generateRandomString = () => {
@@ -64,6 +66,11 @@ app.get('/register', (req, res) => {
   const id = req.cookies['username'];
   // console.log(users[id])
   res.render('registration')
+})
+
+app.get('/login', (req, res) => {
+  const id = req.cookies['username'];
+  res.render('login')
 })
 
 app.get('/urls/:id', (req,res) => {
