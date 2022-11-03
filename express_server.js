@@ -36,14 +36,42 @@ const users = {
     }
     return null;
   },
+  asasas : {
+    email:'k@a.com',
+    password: 'asas',
+    id:'asasas',
+  }
 };
 
-
+const urlDatabase2 = {
+  "b2xVn2": {longURL: "http://www.lighthouselabs.ca",
+  userID: 'asasas'},
+}
 
 const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com",
 };
+
+const findId = (id,data) => {
+  for(const key in data){
+    // console.log(key)
+    if(id === key){
+      return data[key];
+    } 
+  }
+  return null;
+};
+
+const urlsForUser = (id,database) => {
+  output = [];
+  for (const key in urlDatabase2){
+    if(id === database[key].userID){
+      output.push(key)
+    };
+  };
+  return output;
+}
 
 
 app.get('/', (req,res) => {
@@ -52,48 +80,79 @@ app.get('/', (req,res) => {
 
 app.get('/urls', (req,res) => {
   const id = req.cookies['username'];
-  const templateVars = {user : users[id], urls: urlDatabase};
-  // console.log(users)
+  const matchURL = urlsForUser(id,urlDatabase2);
+  if(!id){
+    res.redirect('/login');
+    return;
+  }
+  const templateVars = {user : users[id], urls: urlDatabase2, matchURL};
   res.render('urls_index', templateVars);
 });
 
 app.get('/urls/new', (req,res) => {
   const id = req.cookies['username'];
-  const templateVars = {user : users[id]};
+  if(!id){
+    res.redirect('/login');
+    return
+  }
+  const templateVars = {user : users[id], urls: urlDatabase2};
   res.render('urls_new', templateVars);
 });
 
 app.get('/register', (req, res) => {
   const id = req.cookies['username'];
-  const templateVars = {user : users[id], id: req.params.id, longURL: urlDatabase[req.params.id]};
+  if(id){
+    res.redirect('/urls');
+    return;
+  }
+  const templateVars = {user : users[id], urls: urlDatabase2};
   res.render('registration',templateVars);
 });
 
 app.get('/login', (req, res) => {
   const id = req.cookies['username'];
-  const templateVars = {user : users[id], id: req.params.id, longURL: urlDatabase[req.params.id]};
+  res.clearCookie('username');
+  if(id){
+    res.redirect('/urls')
+    return
+  }
+  const templateVars = {user : users[id], urls: urlDatabase2};
   res.render('login', templateVars);
 });
 
 app.get('/urls/:id', (req,res) => {
   const id = req.cookies['username'];
-  const templateVars = {user : users[id], id: req.params.id, longURL: urlDatabase[req.params.id]};
+  if(id !== urlDatabase2[req.params.id].userID) {
+    res.status(400);
+    res.redirect('/400');
+    return;
+  }
+
+  const templateVars = {user : users[id], id: req.params.id, longURL: urlDatabase2[req.params.id].longURL};
   res.render('urls_show', templateVars);
 });
 
 app.post('/urls', (req,res) => {
+  const id = req.cookies['username'];
+  if(!id){
+    res.status(403);
+    return;
+  }
   const randomStr = generateRandomString();
-  urlDatabase[randomStr] = `http://${req.body.longURL}`;
+  urlDatabase2[randomStr] = {
+    longURL: `http://${req.body.longURL}`,
+    userID: id,
+  };
   res.redirect(`/urls/${randomStr}`);
 });
 
 app.post('/urls/:id/delete', (req,res) => {
-  delete urlDatabase[req.params.id];
+  delete urlDatabase2[req.params.id];
   res.redirect('/urls');
 });
 
 app.post('/urls/:id/edit', (req,res) => {
-  urlDatabase[req.params.id] = `http://${req.body.longURL}`;
+  urlDatabase2[req.params.id].longURL = `http://${req.body.longURL}`;
   res.redirect('/urls');
 });
 
@@ -130,20 +189,32 @@ app.post('/register', (req,res) => {
 });
 
 app.get('/u/:id', (req,res) => {
-  const longURL = urlDatabase[req.params.id];
-  res.redirect(longURL);
+  const dataURL = findId(req.params.id, urlDatabase2)
+  if(!dataURL){
+    res.status(400);
+    res.redirect('/400');
+    return
+  }; 
+  res.redirect(dataURL.longURL);
+
 });
 
 app.get('/400', (req,res) => {
+  // req.send('invalid')
+  console.log(urlDatabase2)
+  res.status(400);
   res.render('400');
 });
 
 app.get('/403', (req,res) => {
+  res.status(403);
   res.render('403');
 });
 
 app.get('*', (req,res) => {
   console.log(users);
+  console.log(urlDatabase2)
+  res.status(404);
   res.render('404');
 });
 

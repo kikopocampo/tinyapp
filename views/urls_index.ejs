@@ -33,9 +33,10 @@
         </thead>
         <tbody>
           <% for (let id in urls) { %>
+            <% if(matchURL.includes(id)) {%>
             <tr>
               <td><%= id %></td>
-              <td><%= urls[id] %></td>
+              <td><%= urls[id].longURL %></td>
               <form method="GET" action="/urls/<%= id %>">
               <td><button type="submit" style="color: black; border-color: black;" class="btn btn-primary bg-warning">Edit</button></td>  
               </form>
@@ -43,6 +44,7 @@
               <td><button type="submit" style="border-color: black;" class="btn btn-primary bg-danger">Delete</button></td>
               </form>
             </tr>
+            <% } %>
           <% } %>
         </tbody>
       </table>
