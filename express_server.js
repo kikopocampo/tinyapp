@@ -75,7 +75,11 @@ const urlsForUser = (id,database) => {
 
 
 app.get('/', (req,res) => {
-  res.send(`Hello!`);
+  const id = req.cookies['username'];
+  if(!id){
+    res.redirect('/login')
+  }
+  res.redirect('/urls')
 });
 
 app.get('/urls', (req,res) => {
@@ -122,6 +126,7 @@ app.get('/login', (req, res) => {
 
 app.get('/urls/:id', (req,res) => {
   const id = req.cookies['username'];
+  console.log({id})
   if(id !== urlDatabase2[req.params.id].userID) {
     res.status(400);
     res.redirect('/400');
@@ -147,13 +152,25 @@ app.post('/urls', (req,res) => {
 });
 
 app.post('/urls/:id/delete', (req,res) => {
-  delete urlDatabase2[req.params.id];
-  res.redirect('/urls');
+  const id = req.cookies['username'];
+  if (urlDatabase2[req.params.id].userID === id)
+  {
+    delete urlDatabase2[req.params.id];
+    res.redirect('/urls');
+    return;
+  }
+  res.redirect('/403');
 });
 
 app.post('/urls/:id/edit', (req,res) => {
-  urlDatabase2[req.params.id].longURL = `http://${req.body.longURL}`;
-  res.redirect('/urls');
+  const id = req.cookies['username'];
+  if (urlDatabase2[req.params.id].userID === id)
+  {
+    urlDatabase2[req.params.id].longURL = `http://${req.body.longURL}`;
+    res.redirect('/urls');
+    return;
+  }
+  res.redirect('/403');
 });
 
 app.post('/login', (req,res) => {
@@ -191,7 +208,6 @@ app.post('/register', (req,res) => {
 app.get('/u/:id', (req,res) => {
   const dataURL = findId(req.params.id, urlDatabase2)
   if(!dataURL){
-    res.status(400);
     res.redirect('/400');
     return
   }; 
