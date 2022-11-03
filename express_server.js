@@ -154,7 +154,6 @@ app.get('/register', (req, res) => {
 // READ
 app.get('/login', (req, res) => {
   const id = req.session.username;
-  req.session = null;
   if (id) {
     res.redirect('/urls');
     return;
@@ -180,6 +179,7 @@ app.post('/login', (req,res) => {
 // READ
 app.get('/u/:id', (req,res) => {
   const dataURL = findId(req.params.id, urlDatabase2);
+  req.session.views(req.session.views || 0) + 1;
   if (!dataURL) {
     res.redirect('/400');
     return;
