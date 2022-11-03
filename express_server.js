@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
 const app = express();
 const PORT = 8080;
 // to read/render ejs file.
@@ -175,8 +176,7 @@ app.post('/urls/:id/edit', (req,res) => {
 
 app.post('/login', (req,res) => {
   const userInfo = users.findEmail(req.body.email);
-  // console.log(userInfo)
-  if (!userInfo || req.body.password !== userInfo.password) {
+  if (!userInfo || !bcrypt.compareSync(req.body.password,userInfo.password)) {
     res.redirect('/403');
     return;
   }
@@ -195,10 +195,12 @@ app.post('/register', (req,res) => {
     return;
   }
   const newId = generateRandomString();
+  const password = req.body.password;
+  const hashedPassword = bcrypt.hashSync(password,10)
   users[newId] = {
     'id': newId,
     email: req.body.email,
-    password: req.body.password
+    password: hashedPassword
   };
   
   res.cookie('username', users[newId]['id']);
