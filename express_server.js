@@ -1,5 +1,4 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const cookieSession = require('cookie-session');
 const findEmail = require('./helpers.js');
@@ -13,7 +12,6 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(cookieParser());
 app.use(cookieSession({
   name: 'session',
   keys: ['key1'],
