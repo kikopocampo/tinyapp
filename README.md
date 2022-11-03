@@ -24,6 +24,6 @@
 
 !["Sample Usage"](./public/sample.jpeg)
 
-- URLs http://localhost:8080/u/Z1j5q3, *et al.* will be created. These can now be used as a link to redirect to the specific site without the lengthy url.
+- URLs http://localhost:8080/u/Z1j5q3, *et al.* will be created. These can now be used as a link to redirect to the specific site without the lengthy url by anyone.
 - A unique code is created everytime a url is generated.
 - The original URL can be replaced if a unique code is already registered.
