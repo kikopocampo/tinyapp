@@ -1,4 +1,5 @@
 const express = require('express');
+const methodOverride = require('method-override');
 const bcrypt = require('bcryptjs');
 const cookieSession = require('cookie-session');
 const findEmail = require('./helpers.js');
@@ -9,7 +10,7 @@ const PORT = 8080;
 app.set('view engine', 'ejs');
 
 // middleware for url, photos, and cookies
-
+app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(cookieSession({
@@ -210,7 +211,7 @@ app.get('/urls/:id', (req,res) => {
 // confirms the edit and directs to the index page
 // also confirms first if the user is correct, else 403 error.
 // UPDATE
-app.post('/urls/:id/edit', (req,res) => {
+app.put('/urls/:id', (req,res) => {
   const id = req.session.username;
   if (urlDatabase2[req.params.id].userID === id) {
     urlDatabase2[req.params.id].longURL = req.body.longURL;
@@ -232,7 +233,7 @@ app.post('/logout', (req,res) => {
 // deletes any selected URL
 // checking first if user is correct, else gets a 403 error.
 // DELETE
-app.post('/urls/:id/delete', (req,res) => {
+app.delete('/urls/:id', (req,res) => {
   const id = req.session.username;
   if (urlDatabase2[req.params.id].userID === id) {
     delete urlDatabase2[req.params.id];

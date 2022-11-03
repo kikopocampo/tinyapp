@@ -40,7 +40,7 @@
               <form method="GET" action="/urls/<%= id %>">
                 <td><button type="submit" style="color: black; border-color: black;" class="btn btn-primary bg-warning">Edit</button></td>  
               </form>
-              <form method="POST" action="/urls/<%= id %>/delete">
+              <form method="POST" action="/urls/<%= id %>?_method=DELETE">
                 <td><button type="submit" style="border-color: black;" class="btn btn-primary bg-danger">Delete</button></td>
               </form>
             </tr>
