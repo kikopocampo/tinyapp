@@ -19,6 +19,7 @@
 
 - Install all dependencies (using the `npm install` command).
 - Run the app by using the `npm start` command.
+- In your browser, type http://localhost:8080/ to begin using the app.
 
 
 ## Usage
