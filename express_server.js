@@ -159,10 +159,6 @@ app.get('/register', (req, res) => {
 // READ
 app.get('/login', (req, res) => {
   const id = req.session.username;
-<<<<<<< HEAD
-=======
-//   req.session = null;
->>>>>>> e759c0e091e4191841eca9093027cf206f914073
   if (id) {
     res.redirect('/urls');
     return;
@@ -190,12 +186,10 @@ app.get('/u/:id', (req,res) => {
   let ids = req.session.username;
   const dataURL = findId(req.params.id, urlDatabase2);
   const date = new Date();
-  console.log('before', ids)
   if (!ids) {
     req.session.visitor = generateRandomString();
     ids = req.session.visitor
   };
-  console.log('after', ids)
   if(urlDatabase2[req.params.id] && !req.session.username){
     urlDatabase2[req.params.id]['numVisit'] = (urlDatabase2[req.params.id]['numVisit'] || 0) + 1;
     urlDatabase2[req.params.id]['numUniqueVisits'] = (urlDatabase2[req.params.id]['numUniqueVisits'] || 0) + 1;
@@ -298,7 +292,6 @@ app.get('/403', (req,res) => {
 
 // 404 Error page - sends a status code as well.
 app.get('*', (req,res) => {
-  console.log(urlDatabase2)
   res.status(404);
   res.render('404');
 });
