@@ -31,5 +31,6 @@
 
 !["Uses cookied to check views"](./public/analytics.png)
 
-- Checks the activity of the link.
+- Checks the activity of the link. 
+- Counts the number of views in total and unique guests visits (owner visits are not counted)
 - Displays a table containing info based on guest ID, time, and date of activity.
