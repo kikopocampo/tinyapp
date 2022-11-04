@@ -159,6 +159,10 @@ app.get('/register', (req, res) => {
 // READ
 app.get('/login', (req, res) => {
   const id = req.session.username;
+<<<<<<< HEAD
+=======
+//   req.session = null;
+>>>>>>> e759c0e091e4191841eca9093027cf206f914073
   if (id) {
     res.redirect('/urls');
     return;
