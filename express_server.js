@@ -44,6 +44,11 @@ const urlDatabase2 = {
     userID: 'asasas'},
 };
 
+// Analytics Database
+const urlInfoDb = {
+
+};
+
 // identifies if a certain short url exists in the database
 const findId = (id,data) => {
   for (const key in data) {
@@ -178,8 +183,32 @@ app.post('/login', (req,res) => {
 // even those who are logged out, provided they have the short-url info
 // READ
 app.get('/u/:id', (req,res) => {
+  let ids = req.session.username;
   const dataURL = findId(req.params.id, urlDatabase2);
-  req.session.views(req.session.views || 0) + 1;
+  const date = new Date();
+  console.log('before', ids)
+  if (!ids) {
+    req.session.visitor = generateRandomString();
+    ids = req.session.visitor
+  };
+  console.log('after', ids)
+  if(urlDatabase2[req.params.id] && !req.session.username){
+    urlDatabase2[req.params.id]['numVisit'] = (urlDatabase2[req.params.id]['numVisit'] || 0) + 1;
+    urlDatabase2[req.params.id]['numUniqueVisits'] = (urlDatabase2[req.params.id]['numUniqueVisits'] || 0) + 1;
+    if (!urlDatabase2[req.params.id]['visitInfo']) {
+    urlDatabase2[req.params.id]['visitInfo'] = [{ id: ids, date: date.toDateString() ,time: date.toTimeString()}];
+    } else {
+      urlDatabase2[req.params.id]['visitInfo'].push({ id: ids, date: date.toDateString() ,time: date.toTimeString()});
+    };
+  } else {
+    urlDatabase2[req.params.id]['numVisit'] = (urlDatabase2[req.params.id]['numVisit'] || 0) + 1;
+    if (!urlDatabase2[req.params.id]['visitInfo']) {
+      urlDatabase2[req.params.id]['visitInfo'] = [{ id: ids, date: date.toDateString() ,time: date.toTimeString()}];
+      } else {
+        urlDatabase2[req.params.id]['visitInfo'].push({ id: ids, date: date.toDateString() ,time: date.toTimeString()});
+      };
+  }
+  
   if (!dataURL) {
     res.redirect('/400');
     return;
@@ -203,7 +232,14 @@ app.get('/urls/:id', (req,res) => {
     return;
   }
 
-  const templateVars = {user : users[id], id: req.params.id, longURL: urlDatabase2[req.params.id].longURL};
+  const templateVars = {
+    user : users[id], 
+    id: req.params.id, 
+    longURL: urlDatabase2[req.params.id].longURL,
+    numViews : urlDatabase2[req.params.id].numVisit,
+    uniqueView : urlDatabase2[req.params.id].numUniqueVisits,
+    visitInfo : urlDatabase2[req.params.id].visitInfo,
+  };
   res.render('urls_show', templateVars);
 });
 
@@ -258,6 +294,7 @@ app.get('/403', (req,res) => {
 
 // 404 Error page - sends a status code as well.
 app.get('*', (req,res) => {
+  console.log(urlDatabase2)
   res.status(404);
   res.render('404');
 });

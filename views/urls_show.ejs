@@ -35,6 +35,36 @@
           />
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+      </div>
+      <div class="card-header"></div>
+      <div class="card-body">
+        <h3 class="card-title">Analytics</h3>
+        <p class="card-text">
+          Number of visits: <%= numViews %>
+        </p>
+        <p class="card-text">
+          Number of Unique visits: <%= uniqueView %>
+        </p>
+        <h4>Viewers Info</h4>
+        <table class="table table-striped table-bordered table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Visitor Cookie ID</th>
+              <th scope="col">Date</th>
+              <th scope="col">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (let visit in visitInfo) { %>
+              <tr>
+                <td><%= visitInfo[visit].id %></td>
+                <td><%= visitInfo[visit].date %></td>
+                <td><%= visitInfo[visit].time %></td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
     </div>
     <!-- Bootstrap JS -->
     <script
